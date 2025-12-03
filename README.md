@@ -4,7 +4,7 @@
 -  [https://www.oracle.com/virtualization/technologies/vm/downloads/virtualbox-downloads.html?source=:ow:o:p:nav:mmddyyVirtualBoxHero&intcmp=:ow:o:p:nav:mmddyyVirtualBoxHero](https://www.oracle.com/virtualization/technologies/vm/downloads/virtualbox-downloads.html?source=:ow:o:p:nav:mmddyyVirtualBoxHero&intcmp=:ow:o:p:nav:mmddyyVirtualBoxHero)
 после этого установите vb в удобное место и запустите.
 далее сделайте следующие шаги для создания первой машины в вб, которая будет маршрутизатором:
-1. ![My Image](картинки/screenshot.png)
+1. ![My Image](картинки/1.png)
 2. ![[2.png]]
 3. установите ресурсов пк вы готовы выделить для машины![[3.png]]
 4. ![[4.png]]
