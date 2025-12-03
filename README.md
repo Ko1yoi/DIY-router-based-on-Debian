@@ -1,4 +1,4 @@
-# DIY-router-based-on-Debian
+# подготовка
 сначала нам нужно скачать iso-файл debian 13 и vb c сайтов:
 -  [https://www.debian.org/download](https://www.debian.org/download)
 -  [https://www.oracle.com/virtualization/technologies/vm/downloads/virtualbox-downloads.html?source=:ow:o:p:nav:mmddyyVirtualBoxHero&intcmp=:ow:o:p:nav:mmddyyVirtualBoxHero](https://www.oracle.com/virtualization/technologies/vm/downloads/virtualbox-downloads.html?source=:ow:o:p:nav:mmddyyVirtualBoxHero&intcmp=:ow:o:p:nav:mmddyyVirtualBoxHero)
@@ -10,7 +10,7 @@
 4. ![my](картинки/4.png)
 5. нажмите кнопку "готово".
 
-теперь перейдем к этапу установки и настройки виртуального маршрутизатора.
+# установка и настройка маршрутизатора
 1. откройте настройки созданой машины
 2. откройте раздел "носители"
 3. нажмите на "пусто"
@@ -57,7 +57,7 @@
 существует два сервиса для настройки сети ifupdown и systemd-network.
 мы будем использовать только второй вариант так как он более современный.
 
-теперь настроим WAN и LAN интерфейсы
+# настройка WAN интерфейса
 1. отключим конфликтующий сервис при помощи `systemctl stop networking` и `systemctl mask networking`
 2. `nano /etc/systemd/network/20-wan.network`
 3. в открывшемся окне пишем:
@@ -67,16 +67,17 @@
    `DHCP=yes`
    таким образом мы настроили WAN. теперь он выполняет функцию DHCP-сервера, а ip адрес назначается автоматически
 4. нажмите `Ctrl+X` затем `Y`,ентер чтобы сохранить и выйти
-5. `nano /etc/systemd/network/10-lan.network`
-6. в открывшемся окне пишем:
+# настройка LAN интерфейса
+1. `nano /etc/systemd/network/10-lan.network`
+2. в открывшемся окне пишем:
    `[Match]`
    `Name=enp0s8`
    `[Network]`
    `Address=192.168.50.1/24`
    таким образом мы настроили LAN. мы указали самостоятельно какой у него будет ip
-7. сохраняем и выходим из этого окна
+3. сохраняем и выходим из этого окна
 
-теперь настроим DNS и запуск сервисов
+# настройка  DNS и запуска сервисов
 1. Удаляем старый файл DNS
    `rm /etc/resolv.conf`
 2. Создаем ссылку на новый системный файл DNS
@@ -86,8 +87,12 @@
 4. Включаем и запускаем сервис DNS
    `systemctl enable --now systemd-resolved`
 
+# проверка сетевых настроек
 теперь для проверки вводим команду `networkctl status`. Вы должны увидеть список интерфейсов со статусом `configured` или `routable` (зеленым цветом).
 Проверьте IP-адреса и выполните `ip a`
 Убедитесь, что:
 - `enp0s3`имеет адрес от провайдера (например, 192.168.1.x или 10.x.x.x).
 - `enp0s8`имеет адрес`192.168.50.1`
+
+
+
