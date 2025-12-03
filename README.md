@@ -1,4 +1,5 @@
-# подготовка
+# DIY маршрутизатор
+### подготовка
 сначала нам нужно скачать iso-файл debian 13 и vb c сайтов:
 -  [https://www.debian.org/download](https://www.debian.org/download)
 -  [https://www.oracle.com/virtualization/technologies/vm/downloads/virtualbox-downloads.html?source=:ow:o:p:nav:mmddyyVirtualBoxHero&intcmp=:ow:o:p:nav:mmddyyVirtualBoxHero](https://www.oracle.com/virtualization/technologies/vm/downloads/virtualbox-downloads.html?source=:ow:o:p:nav:mmddyyVirtualBoxHero&intcmp=:ow:o:p:nav:mmddyyVirtualBoxHero)
