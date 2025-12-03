@@ -1,3 +1,4 @@
+# DIY маршрутизатор
 ### подготовка
 сначала нам нужно скачать iso-файл debian 13 и vb c сайтов:
 -  [https://www.debian.org/download](https://www.debian.org/download)
