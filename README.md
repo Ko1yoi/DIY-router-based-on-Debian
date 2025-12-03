@@ -4,7 +4,7 @@
 -  [https://www.oracle.com/virtualization/technologies/vm/downloads/virtualbox-downloads.html?source=:ow:o:p:nav:mmddyyVirtualBoxHero&intcmp=:ow:o:p:nav:mmddyyVirtualBoxHero](https://www.oracle.com/virtualization/technologies/vm/downloads/virtualbox-downloads.html?source=:ow:o:p:nav:mmddyyVirtualBoxHero&intcmp=:ow:o:p:nav:mmddyyVirtualBoxHero)
 после этого установите vb в удобное место и запустите.
 далее сделайте следующие шаги для создания первой машины в вб, которая будет маршрутизатором:
-1. ![[1.png]]
+1. <img width="1279" height="462" alt="1" src="https://github.com/user-attachments/assets/fca13f46-6a72-43c6-bdae-c68ecb2ab5de" />
 2. ![[2.png]]
 3. установите ресурсов пк вы готовы выделить для машины![[3.png]]
 4. ![[4.png]]
@@ -17,7 +17,6 @@
 4. нажмите на значек жесткого диска справа![[5.png]]
 5. нажмите "выбрать файл диска", перейдите в место куда установился файл и выберите его
 6. запустите машину
-7. выберите графическую установку
 8. выберите язык
 9. имя компьютера - march
    имя домена пропустите(ничего не вписывайте)
