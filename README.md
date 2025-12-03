@@ -1,5 +1,5 @@
 # DIY маршрутизатор
-## подготовка
+### подготовка
 сначала нам нужно скачать iso-файл debian 13 и vb c сайтов:
 -  [https://www.debian.org/download](https://www.debian.org/download)
 -  [https://www.oracle.com/virtualization/technologies/vm/downloads/virtualbox-downloads.html?source=:ow:o:p:nav:mmddyyVirtualBoxHero&intcmp=:ow:o:p:nav:mmddyyVirtualBoxHero](https://www.oracle.com/virtualization/technologies/vm/downloads/virtualbox-downloads.html?source=:ow:o:p:nav:mmddyyVirtualBoxHero&intcmp=:ow:o:p:nav:mmddyyVirtualBoxHero)
@@ -11,7 +11,7 @@
 4. ![my](картинки/4.png)
 5. нажмите кнопку "готово".
 
-## установка и настройка маршрутизатора
+### установка и настройка маршрутизатора
 1. откройте настройки созданой машины
 2. откройте раздел "носители"
 3. нажмите на "пусто"
