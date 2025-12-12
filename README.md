@@ -1,12 +1,12 @@
 # DIY маршрутизатор
 **!!!!!!!!!!!!!работа выполнена как итоговый учебный проект для лицйея №129. в данный момент проект все еще в разработке!!!!!!!!!!!!**
+*если вы хотите сразу получить готовый результат то скачайте файл маршрутизаторас гугл диска по [ссылке](https://drive.google.com/file/d/1uuvKOs4Y_hMUTTp8zpIXQ1lBiuNTdeBW/view?usp=sharing) и импортируету его в VirtualBox* 
 ## шаг 1: Создание виртуального маршрутизатора
 ### подготовка
-сначала нам нужно скачать iso-файл debian 13 и vb c сайтов:
--  [https://www.debian.org/download](https://www.debian.org/download)
--  [https://www.oracle.com/virtualization/technologies/vm/downloads/virtualbox-downloads.html?source=:ow:o:p:nav:mmddyyVirtualBoxHero&intcmp=:ow:o:p:nav:mmddyyVirtualBoxHero](https://www.oracle.com/virtualization/technologies/vm/downloads/virtualbox-downloads.html?source=:ow:o:p:nav:mmddyyVirtualBoxHero&intcmp=:ow:o:p:nav:mmddyyVirtualBoxHero)
-после этого установите vb в удобное место и запустите.
-далее сделайте следующие шаги для создания первой машины в вб, которая будет маршрутизатором:
+сначала нам нужно скачать [iso-файл debian 13](https://www.debian.org/download) и [VirtualBox](https://www.oracle.com/virtualization/technologies/vm/downloads/virtualbox-downloads.html?source=:ow:o:p:nav:mmddyyVirtualBoxHero&intcmp=:ow:o:p:nav:mmddyyVirtualBoxHero) c сайтов
+
+после этого установите VirtualBox в удобное место и запустите.
+далее сделайте следующие шаги для создания первой машины в VirtualBox, которая будет маршрутизатором:
 1. ![my](картинки/1.png)
 2. ![my](картинки/2.png)
 3. установите ресурсов пк вы готовы выделить для машины![my](картинки/3.png)
@@ -45,7 +45,12 @@
 
 
 
-после установки машина должна сама завестить. входим в систему и выполняем `apt update` и `apt install systemd-resolved` чтобы установить недостающий пакет.
+после установки машина должна сама завестить. входим в систему и выполняем
+```
+apt update
+apt install systemd-resolved 
+```
+чтобы установить недостающий пакет.
 после этого выключаем машину и выполняем действия:
 1. откройте настройки машины 
 2. перейдите в раздел "сеть"
@@ -62,38 +67,67 @@
 
 ## Шаг 2: Настройка сетевых интерфейсов Маршрутизатора
 ### настройка WAN интерфейса
-1. отключим конфликтующий сервис при помощи `systemctl stop networking` и `systemctl mask networking`
-2. `nano /etc/systemd/network/20-wan.network`
-3. в открывшемся окне пишем:
-   `[Match]`
-   `Name=enp0s3`
-   `[Network]`
-   `DHCP=yes`
-   таким образом мы настроили WAN. теперь он выполняет функцию DHCP-сервера, а ip адрес назначается автоматически
-4. нажмите `Ctrl+X` затем `Y`,ентер чтобы сохранить и выйти
-### настройка LAN интерфейса
-1. `nano /etc/systemd/network/10-lan.network`
+1. отключим конфликтующий сервисы
+```
+systemctl stop networking
+systemctl mask networking
+```
+2. создадим конфигурационный файл интерфейса
+```
+nano /etc/systemd/network/20-wan.network
+```
 2. в открывшемся окне пишем:
-   `[Match]`
-   `Name=enp0s8`
-   `[Network]`
-   `Address=192.168.50.1/24`
+```
+[Match]
+Name=enp0s3
+[Network]
+DHCP=yes
+```
+   таким образом мы настроили WAN. теперь он выполняет функцию DHCP-сервера, а ip адрес назначается автоматически
+5. нажмите `Ctrl+X` затем `Y`,ентер чтобы сохранить и выйти
+### настройка LAN интерфейса
+1. создадим конфигурационный файл интерфейса
+```
+nano /etc/systemd/network/10-lan.network
+```
+2. в открывшемся окне пишем:
+```
+[Match]
+Name=enp0s8
+[Network]
+Address=192.168.50.1/24
+```
    таким образом мы настроили LAN. мы указали самостоятельно какой у него будет ip
 3. сохраняем и выходим из этого окна
 
 ### настройка  DNS и запуска сервисов
 1. Удаляем старый файл DNS
-   `rm /etc/resolv.conf`
+```
+rm /etc/resolv.conf
+```
 2. Создаем ссылку на новый системный файл DNS
-   `ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf`
+```
+ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
+```
 3. Включаем и запускаем сервис сети
-   `systemctl enable --now systemd-networkd`
+```
+systemctl enable --now systemd-networkd
+```
 4. Включаем и запускаем сервис DNS
-   `systemctl enable --now systemd-resolved`
+```
+systemctl enable --now systemd-resolved
+```
 
 ### проверка сетевых настроек
-теперь для проверки вводим команду `networkctl status`. Вы должны увидеть список интерфейсов со статусом `configured` или `routable` (зеленым цветом).
-Проверьте IP-адреса и выполните `ip a`
+теперь для проверки вводим команду 
+```
+networkctl status
+```
+Вы должны увидеть список интерфейсов со статусом `configured` или `routable` (зеленым цветом).
+Проверьте IP-адреса и выполните 
+```
+ip a
+```
 Убедитесь, что:
 - `enp0s3`имеет адрес от провайдера (например, 192.168.1.x или 10.x.x.x).
 - `enp0s8`имеет адрес`192.168.50.1`
@@ -103,18 +137,26 @@
 Нужно разрешить ядру Linux перекладывать пакеты с одного интерфейса на другой.
 - **1 способ**:
   1. Откройте файл системных настроек:
-     `nano /etc/sysctl.conf`
+```
+nano /etc/sysctl.conf
+```
   2. напишите сточку:
-     `net.ipv4.ip_forward=1`
+```
+net.ipv4.ip_forward=1
+```
   3. сохраните файл
   4. Примените изменения при помощи команды:
      sysctl -p
      _Если в ответ вывелась строчка `net.ipv4.ip_forward = 1`, значит всё сработало._
 - **2 способ**:
   1. Создайте отдельный конфигурационный файл:
-     `nano /etc/sysctl.d/90-routing.conf`
+```
+nano /etc/sysctl.d/90-routing.conf
+```
   2. Впишите туда ту же самую строку:
-     `net.ipv4.ip_forward=1`
+```
+net.ipv4.ip_forward=1
+```
 
 **в чем различия способов?**
 **1 способ**:
